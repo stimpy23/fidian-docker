@@ -59,8 +59,9 @@ RUN echo "cd ~" >>/home/fido/.bashrc \
     && cp /home/fido/.bashrc /home/fido/.bashrc.bak \
     && chown 1000:1000 /home/fido/.bashrc.bak \
     && echo "" >>/home/fido/.bashrc \
-    && echo "if [ $(grep -c '0:0/0' ) -gt 0 ]; then" >>/home/fido/.bashrc \
+    && echo "if [ $(grep -c '0:0/0' ~/.fidoconfig) -gt 0 ]; then" >>/home/fido/.bashrc \
     && echo "/usr/local/sbin/fidoconfig.sh" >>/home/fido/.bashrc \
+    && echo "clear" >>/home/fido/.bashrc \
     && echo "fi" >>/home/fido/.bashrc \
     && echo "mv /home/fido/.bashrc.bak /home/fido/.bashrc" >>/home/fido/.bashrc
 
