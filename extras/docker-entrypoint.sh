@@ -2,7 +2,7 @@
 
 DIR=/docker-entrypoint.d
 if [ -d "$DIR" ]; then
-  /bin/run-parts "$DIR"
+  /bin/run-parts --regex='^.*\.sh$' "$DIR"
 fi
 
 exec "$@"
