@@ -137,7 +137,7 @@ docker run -d \
   -e TZ="Europe/Berlin" \
   -p 24554:24554 \
   --name fidian \
-  stimpy/fidian-docker
+  stimpy23/fidian:latest
 ```
 enter as user `fido`:
 ```
