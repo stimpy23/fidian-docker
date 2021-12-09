@@ -1,5 +1,5 @@
 # fidian-docker
-Dockerized version of Fidian, a debian based all-in-one Fido system with binkd, husky and GoldEd+ installed.
+Dockerized version of [Fidian](https://kuehlbox.wtf/fidian), a debian based all-in-one Fido system with binkd, husky and GoldEd+ installed.
 
 ## Tags
 * latest ([Dockerfile](https://github.com/stimpy/fidian-docker/blob/master/Dockerfile))
