@@ -27,6 +27,7 @@ COPY /extras/fidoconfig.txt .
 
 RUN wget --quiet https://kuehlbox.wtf/fidosetup.sh \
     && chmod 755 fidosetup.sh \
+		&& patch -s fidosetup.sh /extras/docker.patch \
     && ./fidosetup.sh
 
 RUN mkdir -p /run/ftn \
