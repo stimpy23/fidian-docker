@@ -1,0 +1,28 @@
+--- fidosetup.orig.sh 2021-12-13 11:21:44.181944388 +0100
++++ fidosetup.sh  2021-12-13 11:46:21.880701876 +0100
+@@ -305,6 +305,13 @@
+ sed -i "s|@OTHER_DOMAINS@||g" ${TMP}/binkd.cfg
+
+ echo ""
++echo "  * Patching logfile locations for Docker"
++
++mkdir -p /var/log/fidian
++sed -i "s/\/var\/log\/binkd/\/var\/log\/fidian/g" ${TMP}/binkd.cfg
++sed -i "s/\/var\/log\/husky/\/var\/log\/fidian/g" ${TMP}/config
++
++echo ""
+ echo "  * Copying configuration files to their destinations"
+
+ for f in ${CFGFILES}
+@@ -436,6 +443,11 @@
+ sudo -u fido gnlnx -Q -F /home/fido/.golded/golded.cfg
+
+ echo ""
++echo "  * Patching Fidian scripts for Docker"
++wget --quiet -O "${TMP}/docker.patch https://raw.githubusercontent.com/stimpy23/fidian-docker/master/extras/docker.patch"
++patch -s "${TMP}/fidosetup.sh" "${TMP}/docker.patch"
++
++echo ""
+ if  [ ! -e /usr/local/sbin/fidoconfig.sh ] ||
+     [ ! -e /usr/local/sbin/fidosetup.sh ] ||
+     [ ! -e /usr/local/sbin/fidouninstall.sh ]
