@@ -1,12 +1,12 @@
 --- fidosetup.orig.sh	2021-12-13 12:23:48.162068874 +0100
-+++ fidosetup.sh	2021-12-13 12:33:37.803437860 +0100
++++ fidosetup.sh	2021-12-13 12:39:07.102655505 +0100
 @@ -436,6 +436,11 @@
  sudo -u fido gnlnx -Q -F /home/fido/.golded/golded.cfg
  
  echo ""
 +echo "  * Patching Fidian scripts for Docker"
 +wget --quiet -O "${TMP}/docker.patch" https://raw.githubusercontent.com/stimpy23/fidian-docker/master/extras/docker.patch
-+patch -s "${TMP}/fidosetup.sh" "${TMP}/docker.patch"
++patch -s "${TMP}/scripts_fidian-master/fidosetup.sh" "${TMP}/docker.patch"
 +
 +echo ""
  if  [ ! -e /usr/local/sbin/fidoconfig.sh ] || 
