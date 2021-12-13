@@ -21,13 +21,14 @@ ENV TZ="UTC"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get -y install apt-utils \
-    && apt-get -y install wget cron locales libterm-readline-perl-perl supervisor tzdata
+    && apt-get -y install wget cron locales libterm-readline-perl-perl supervisor tzdata patch
     
 COPY /extras/fidoconfig.txt .
+COPY /extras/docker.patch .
 
 RUN wget --quiet https://kuehlbox.wtf/fidosetup.sh \
     && chmod 755 fidosetup.sh \
-		&& patch -s fidosetup.sh /extras/docker.patch \
+		&& patch -s fidosetup.sh docker.patch \
     && ./fidosetup.sh
 
 RUN mkdir -p /run/ftn \
@@ -47,7 +48,8 @@ RUN chmod 755 /docker-entrypoint.sh \
     && chmod 755 /docker-entrypoint.d/20-fidianconfig.sh
 
 RUN rm -f /fidosetup.sh \
-    && rm -f /fidoconfig.txt
+    && rm -f /fidoconfig.txt \
+		&& rm -f /docker.patch
 
 RUN echo "" >>/home/fido/.bashrc \
     && echo ". /usr/local/sbin/dockerrun.sh" >>/home/fido/.bashrc \

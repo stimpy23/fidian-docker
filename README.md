@@ -113,6 +113,10 @@ Dockerized version of [Fidian](https://kuehlbox.wtf/fidian), a debian based all-
 * `/var/spool/ftn`
     
     data
+		
+* `/var/log/fidian`
+    
+    logfiles
     
 ## How to use this container
 ```
