@@ -60,6 +60,7 @@ RUN apt-get clean
 VOLUME /var/spool/ftn
 VOLUME /etc/binkd
 VOLUME /etc/husky
+VOLUME /var/log/fidian
 
 WORKDIR /
 
