@@ -1,6 +1,22 @@
 --- fidosetup.orig.sh	2021-12-13 12:23:48.162068874 +0100
-+++ fidosetup.sh	2021-12-13 12:39:07.102655505 +0100
-@@ -436,6 +436,11 @@
++++ fidosetup.sh	2021-12-13 13:00:18.519090508 +0100
+@@ -305,6 +305,15 @@
+ sed -i "s|@OTHER_DOMAINS@||g" ${TMP}/binkd.cfg
+ 
+ echo ""
++echo "  * Creating Fidian log folder"
++mkdir -p /var/log/fidian
++
++echo ""
++echo "  * Fixing logfiles location for Docker"
++sed -i "s|/var/log/binkd|/var/log/fidian|g" ${TMP}/binkd.cfg
++sed -i "s|/var/log/husky|/var/log/fidian|g" ${TMP}/config
++
++echo ""
+ echo "  * Copying configuration files to their destinations"
+ 
+ for f in ${CFGFILES}
+@@ -436,6 +445,11 @@
  sudo -u fido gnlnx -Q -F /home/fido/.golded/golded.cfg
  
  echo ""
