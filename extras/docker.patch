@@ -1,5 +1,5 @@
---- fidosetup.orig.sh	2021-12-13 12:23:48.162068874 +0100
-+++ fidosetup.sh	2021-12-13 13:00:18.519090508 +0100
+--- fidosetup.orig.sh	2021-12-14 12:16:53.495850499 +0100
++++ fidosetup.sh	2021-12-14 12:18:03.928485608 +0100
 @@ -305,6 +305,15 @@
  sed -i "s|@OTHER_DOMAINS@||g" ${TMP}/binkd.cfg
  
@@ -28,3 +28,16 @@
  if  [ ! -e /usr/local/sbin/fidoconfig.sh ] || 
      [ ! -e /usr/local/sbin/fidosetup.sh ] || 
      [ ! -e /usr/local/sbin/fidouninstall.sh ]
+@@ -503,12 +517,6 @@
+ locale-gen
+ 
+ echo ""
+-echo "  * (Re-)starting binkd"
+-/usr/sbin/service binkd stop
+-sleep 5
+-/usr/sbin/service binkd start
+-
+-echo ""
+ echo "  * Cleaning up temp files"
+ rm -rf ${TMP}
+ 
