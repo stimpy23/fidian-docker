@@ -1,0 +1,13 @@
+/var/log/fidian/binkd {
+        rotate 4
+        weekly
+        delaycompress
+        compress
+        nocreate
+        missingok
+        notifempty
+        postrotate
+                #test -f /var/log/fidian/binkd.1 && /usr/sbin/binkdlogstat < /var/log/fidian/binkd.1 | mail -s "Binkd report" ftn
+								/usr/bin/supervisorctl restart binkd:binkd_00
+        endscript
+}

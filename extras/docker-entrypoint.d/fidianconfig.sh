@@ -1,4 +1,18 @@
 #!/bin/bash
+r=0
+if [ $(grep -c '/var/log/supervisor/supervisord.log' /etc/supervisor/supervisord.conf) -gt 0 ]; then
+  r=$((r+1))
+  sed -i 's|/var/log/supervisor/supervisord.log|/dev/null|g' /etc/supervisor/supervisord.conf
+fi
+if [ $(grep -c "${WEB_PASSWORD:-fidian}" /etc/supervisor/conf.d/ttyd.conf) -eq 0 ]; then
+  r=$((r+1))
+  sed -i "s/command=\(.*\) -cfido:\(.*\) \/bin\/bash\(.*\)/command=\1 -cfido:${WEB_PASSWORD:-fidian} \/bin\/bash\3/" /etc/supervisor/conf.d/ttyd.conf
+fi
+
+if [ $r -gt 0 ]; then
+  /usr/bin/supervisorctl reload
+fi
+
 if [ -n ${YOUR_AKA} ]; then
   if [ $(grep -c "${YOUR_AKA}" /home/fido/.fidoconfig) -eq 0 ]; then
     echo "LINK_NAME ${LINK_NAME:-unconfigured}" >/home/fido/.fidoconfig
@@ -15,9 +29,13 @@ if [ -n ${YOUR_AKA} ]; then
     echo "PACKET_PASSWORD ${PACKET_PASSWORD}" >>/home/fido/.fidoconfig
     echo "AREAFIX_PASSWORD ${AREAFIX_PASSWORD}" >>/home/fido/.fidoconfig
     echo "FILEFIX_PASSWORD ${FILEFIX_PASSWORD}" >>/home/fido/.fidoconfig
+    if [ $r -gt 0 ]; then
+      sleep 30
+    fi
     /usr/local/sbin/fidosetup.sh
   fi
 fi
+
 export LINK_NAME=''
 export LINK_DOMAIN=''
 export YOUR_NAME=''
@@ -32,3 +50,4 @@ export SESSION_PASSWORD=''
 export PACKET_PASSWORD=''
 export AREAFIX_PASSWORD=''
 export FILEFIX_PASSWORD=''
+export WEB_PASSWORD=''

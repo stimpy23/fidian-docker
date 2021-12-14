@@ -1,0 +1,9 @@
+/var/log/fidian/*.log {
+        rotate 4
+        weekly
+        delaycompress
+        compress
+        nocreate
+        missingok
+        notifempty
+}

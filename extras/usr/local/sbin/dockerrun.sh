@@ -13,6 +13,7 @@ export SESSION_PASSWORD=''
 export PACKET_PASSWORD=''
 export AREAFIX_PASSWORD=''
 export FILEFIX_PASSWORD=''
+export WEB_PASSWORD=''
 
 if [ $(grep -c unconfigured /home/fido/.fidoconfig) -gt 0 ]; then
   /usr/local/sbin/fidoconfig.sh
