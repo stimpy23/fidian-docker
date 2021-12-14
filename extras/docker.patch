@@ -1,5 +1,5 @@
 --- fidosetup.orig.sh	2021-12-14 12:16:53.495850499 +0100
-+++ fidosetup.sh	2021-12-14 12:18:03.928485608 +0100
++++ fidosetup.sh	2021-12-14 12:35:05.242119962 +0100
 @@ -305,6 +305,15 @@
  sed -i "s|@OTHER_DOMAINS@||g" ${TMP}/binkd.cfg
  
@@ -16,7 +16,16 @@
  echo "  * Copying configuration files to their destinations"
  
  for f in ${CFGFILES}
-@@ -436,6 +445,11 @@
+@@ -353,8 +362,6 @@
+   echo "*/1 * * * *   root  /usr/local/sbin/semacheck.sh" >/etc/cron.d/fido
+   echo "*/10 * * * *  ftn   touch /var/spool/ftn/flags/poll; touch /var/spool/ftn/flags/echoscan; touch /var/spool/ftn/flags/netscan" >>/etc/cron.d/fido
+   echo '8 6 * * 3     ftn   /usr/bin/cronic /usr/bin/sqpack -c /etc/husky/config "*"; chmod -R 770 /var/spool/ftn/msgbase; find /var/spool/ftn/msgbase -type f -exec chmod 660 "{}" \;' >>/etc/cron.d/fido
+-  echo "    - restarting cron"
+-  /usr/sbin/service cron restart
+ fi
+ 
+ echo ""
+@@ -436,6 +443,11 @@
  sudo -u fido gnlnx -Q -F /home/fido/.golded/golded.cfg
  
  echo ""
@@ -28,7 +37,7 @@
  if  [ ! -e /usr/local/sbin/fidoconfig.sh ] || 
      [ ! -e /usr/local/sbin/fidosetup.sh ] || 
      [ ! -e /usr/local/sbin/fidouninstall.sh ]
-@@ -503,12 +517,6 @@
+@@ -503,12 +515,6 @@
  locale-gen
  
  echo ""
