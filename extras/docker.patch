@@ -1,11 +1,21 @@
---- fidosetup.orig.sh	2021-12-14 12:16:53.495850499 +0100
-+++ fidosetup.sh	2021-12-14 12:35:05.242119962 +0100
-@@ -305,6 +305,15 @@
+--- fidosetup.orig.sh	2021-12-14 14:55:02.135678353 +0100
++++ fidosetup.sh	2021-12-14 15:17:06.834219363 +0100
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+ 
+-CFGFILES="/etc/husky/areas /etc/binkd/binkd.cfg /etc/binkd/binkd.inc /home/fido/.golded/charsets.cfg /etc/husky/config /etc/husky/fileareas /home/fido/.golded/golded.cfg /home/fido/.golded/local.cfg /home/fido/.golded/goldkeys.cfg /etc/husky/links /etc/husky/route /usr/local/sbin/poll.sh /usr/local/sbin/toss.sh /usr/local/sbin/tick.sh /usr/local/sbin/echoscan.sh /usr/local/sbin/netscan.sh /usr/local/sbin/fidocomplete.sh /etc/logrotate.d/husky /usr/local/sbin/semacheck.sh /usr/local/sbin/fidoupdate.sh"
++CFGFILES="/etc/husky/areas /etc/binkd/binkd.cfg /etc/binkd/binkd.inc /home/fido/.golded/charsets.cfg /etc/husky/config /etc/husky/fileareas /home/fido/.golded/golded.cfg /home/fido/.golded/local.cfg /home/fido/.golded/goldkeys.cfg /etc/husky/links /etc/husky/route /usr/local/sbin/poll.sh /usr/local/sbin/toss.sh /usr/local/sbin/tick.sh /usr/local/sbin/echoscan.sh /usr/local/sbin/netscan.sh /usr/local/sbin/fidocomplete.sh /usr/local/sbin/semacheck.sh /usr/local/sbin/fidoupdate.sh"
+ VERSION="0.2.4"
+ declare -A CFG
+ 
+@@ -305,6 +305,17 @@
  sed -i "s|@OTHER_DOMAINS@||g" ${TMP}/binkd.cfg
  
  echo ""
-+echo "  * Creating Fidian log folder"
++echo "  * Creating Fidian-docker log folder"
 +mkdir -p /var/log/fidian
++chown root:ftn /var/log/fidian
++chmod 775 /var/log/fidian
 +
 +echo ""
 +echo "  * Fixing logfiles location for Docker"
@@ -16,6 +26,15 @@
  echo "  * Copying configuration files to their destinations"
  
  for f in ${CFGFILES}
+@@ -327,8 +338,6 @@
+ mkdir -p /var/spool/ftn/transit
+ mkdir -p /var/spool/ftn/flags
+ mkdir -p /var/spool/ftn/msgbase/fido
+-mkdir -p /var/log/husky
+-mkdir -p /var/log/binkd
+ touch /var/spool/ftn/msgbase/netmail.jdt
+ touch /var/spool/ftn/msgbase/netmail.jdx
+ touch /var/spool/ftn/msgbase/netmail.jhr
 @@ -353,8 +362,6 @@
    echo "*/1 * * * *   root  /usr/local/sbin/semacheck.sh" >/etc/cron.d/fido
    echo "*/10 * * * *  ftn   touch /var/spool/ftn/flags/poll; touch /var/spool/ftn/flags/echoscan; touch /var/spool/ftn/flags/netscan" >>/etc/cron.d/fido
